@@ -13,7 +13,7 @@ class WordpressCom
       :site          => 'https://public-api.wordpress.com/',
       :authorize_url => '/oauth2/authorize',
       :token_url     => '/oauth2/token')
-    @token = token
+    @token = AccessToken.new(client, token) if token
   end
 
   def self.deserialize(data)
