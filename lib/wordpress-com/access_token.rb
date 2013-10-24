@@ -18,7 +18,7 @@ class WordpressCom
   class AccessToken < OAuth2::AccessToken
     def request(verb, path, opts={}, &block)
       full_path = "/rest/v1/"
-      full_path << "sites/#{self['blog_id']}/" unless opts.delete('root_path')
+      full_path << "sites/#{self.params[:blog_id]}/" unless opts.delete('root_path')
       full_path << path.gsub(/^\/*/, '')
       super(verb, full_path, opts, &block)
     end

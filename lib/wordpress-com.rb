@@ -13,7 +13,7 @@ class WordpressCom
       :site          => 'https://public-api.wordpress.com/',
       :authorize_url => '/oauth2/authorize',
       :token_url     => '/oauth2/token')
-    @token = AccessToken.new(client, token) if token
+    @token = AccessToken.new(client, token, {blog_id: blog_id}) if token
     @blog_id = blog_id
   end
 
