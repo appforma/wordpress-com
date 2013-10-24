@@ -5,15 +5,16 @@ require "wordpress-com/access_token"
 
 class WordpressCom
   extend Forwardable
-  attr_reader :client, :token
+  attr_reader :client, :token, :blog_id
   def_delegators :@token, :request, :get, :post, :put, :delete
 
-  def initialize(client_id, client_secret, token=nil)
+  def initialize(client_id, client_secret, blog_id, token=nil)
     @client = OAuth2::Client.new(client_id, client_secret,
       :site          => 'https://public-api.wordpress.com/',
       :authorize_url => '/oauth2/authorize',
       :token_url     => '/oauth2/token')
     @token = AccessToken.new(client, token) if token
+    @blog_id = blog_id
   end
 
   def self.deserialize(data)
@@ -37,7 +38,4 @@ class WordpressCom
     [ client.id, client.secret, token.to_hash ]
   end
 
-  def blog_id
-    token['blog_id']
-  end
 end
